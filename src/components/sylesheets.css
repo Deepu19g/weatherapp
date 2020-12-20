@@ -1,0 +1,59 @@
+body
+{
+    background-color:#7ab0f5 !important
+}
+#main {
+    background-color: #3e91fa;
+    /*width: max-content;*/
+    padding: 7%;
+    border-radius: 10px;
+}
+#sup {
+    margin-top: 5%;
+}
+form {
+    margin-top: 7%;
+}
+input[type=text] {
+    
+    border-radius: 5px;
+    padding: 5px;
+}
+#more {
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 5%;
+    margin-bottom: 3%;
+    padding-top: 5%;
+}
+
+.row {
+    text-align: center;
+    margin-top: 4%;
+    align-items: center;
+}
+#hr {
+    background-color: white;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 10px;
+}
+#hrdata {
+   
+    margin-bottom: 5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+#hrp {
+    background-color: white;
+    padding-top: 2%;
+    
+}
+#idk {
+    padding-left: 5%;
+    text-align: left;
+    padding-top: 3%;
+}
+#idk2 {
+    padding-left: 5%;
+}
