@@ -37,6 +37,7 @@ input[type=text] {
     margin-top: 3%;
     margin-bottom: 3%;
     border-radius: 10px;
+    max-width: fit-content;
 }
 #hrdata {
    
@@ -47,7 +48,7 @@ input[type=text] {
 #hrp {
     background-color: white;
     padding-top: 2%;
-    
+    margin-bottom: 5%;
 }
 #idk {
     padding-left: 5%;
@@ -56,4 +57,26 @@ input[type=text] {
 }
 #idk2 {
     padding-left: 5%;
+}
+.card-header button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#wicon  {
+    max-width: -webkit-fill-available;
+}
+.accordion {
+    max-width: 100%;
+}
+.h4 {
+    font-size: 1.4rem;
+}
+h3{
+    font-size: 1.2rem !important;
+}
+#wicon2 {
+  width: 30%;
+  height: auto;
 }
