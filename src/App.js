@@ -9,6 +9,13 @@ import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 
 import Today from "./components/Today";
+import Daily from "./components/Daily";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faCloudRain} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(faCloudRain);
+
 function App() {
   const [name, setname] = useState(" ");
   //const [IsLoaded, setIsLoaded] = useState(false);
@@ -19,6 +26,7 @@ function App() {
   const [late, setlat] = useState();
   const [long, setlong] = useState();
   const [Mylist, setmylist] = useState([]);
+  const [myday, setmyday] = useState([]);
   var iconcode;
   const api = {
     base2: "https://community-open-weather-map.p.rapidapi.com/forecast?",
@@ -30,12 +38,18 @@ function App() {
     setflag(1);
     e.preventDefault();
     console.log("reached onserach");
-    fetch(`https://api.weatherbit.io/v2.0/current?city=${name}&key=438b481d5a99435daccd13ab74b8117b`)
+    fetch(
+      `https://api.weatherbit.io/v2.0/current?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
+    )
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
-        setlat(response.data.lat);
-        setlong(response.data.lon);
+        for (const obi of response.data) {
+          setlat(obi.lat);
+          console.log(obi.lat);
+          setlong(obi.lon);
+        }
+
         setItems(response);
       })
 
@@ -43,30 +57,36 @@ function App() {
         console.error(err);
       });
   }
-  
+  console.log(late);
   useEffect(() => {
-    console.log(late);
     var time = new Date().toString().split(" ")[4];
-    console.log(time);
+
     var curdate = new Date().toLocaleDateString();
     console.log(curdate);
-    fetch(`https://api.weatherbit.io/v2.0/forecast/hourly?city=${name}&key=438b481d5a99435daccd13ab74b8117b&hours=48`)
+    //fetch(`https://api.weatherbit.io/v2.0/forecast/hourly?city=${name}&key=438b481d5a99435daccd13ab74b8117b&hours=48`)
+    fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${late}&lon=${long}&exclude={minutely,alerts}&units=metric&appid=f294bbf17831f5a084f814e8ead88517`
+    )
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
+
         sethdetail(response);
         var i = 0;
         var dtxpm = 0;
-        var mytemhrarr = response.data.map(function hrdetail(itd) {
+        var mytemhrarr = response.hourly.map(function hrdetail(itd) {
           //var dtxtime = itd.dt_txt.split(" ")[1];
-          var dtxtime = new Date(itd.ts * 1000)
+          var dtxtime = new Date(itd.dt * 1000)
             .toLocaleTimeString()
             .split(":")[0];
 
-          var dtxdate = new Date(itd.ts * 1000).toLocaleDateString();
-          console.log(dtxdate);
-          var icode = itd.weather.icon;
+          var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
+
           if (dtxtime >= time && curdate == dtxdate && i < 4) {
+            for (const myobj of itd.weather) {
+              var icod = myobj.icon;
+            }
+            console.log(icod);
             if (dtxtime > 12) {
               dtxpm = Number(dtxtime) - 12;
             }
@@ -77,10 +97,10 @@ function App() {
               i++;
 
               return (
-                <Col xs={3} key={itd.ts}>
+                <Col xs={3} key={itd.dt}>
                   <img
                     id="wicon"
-                    src={`https://www.weatherbit.io/static/img/icons/${icode}.png `}
+                    src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
                     alt="Weather icon"
                   />
 
@@ -91,10 +111,10 @@ function App() {
             } else {
               i++;
               return (
-                <Col xs={3} key={itd.ts}>
+                <Col xs={3} key={itd.dt}>
                   <img
                     id="wicon"
-                    src={`https://www.weatherbit.io/static/img/icons/${icode}.png `}
+                    src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
                     alt="Weather icon"
                   />
 
@@ -106,11 +126,22 @@ function App() {
           }
         });
         setmyhrarr(mytemhrarr);
+        //setmyday(response.daily)
         console.log(mytemhrarr);
       })
       .catch((err) => {
         console.error(err);
       });
+      fetch(`https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`)
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        setmyday(response)
+      }
+      )
+      .catch((err) => {
+        console.error(err);
+      })
   }, [items]);
   function hourlyfun() {
     setflag2(1);
@@ -118,12 +149,15 @@ function App() {
     var temp2;
     var temphrobj = hdetails;
     var icon;
-    var mylist = temphrobj.data.map(function (item) {
-      iconcode = item.weather.icon;
-      des = item.weather.description;
+    var mylist = temphrobj.hourly.map(function (item) {
+      for (const myobj2 of item.weather) {
+        var iconcode = myobj2.icon;
+        des = myobj2.description;
+      }
+
       temp2 = item.temp;
       //var dtxt = item.dt_txt;
-      var dtxt = new Date(item.ts * 1000).toLocaleString();
+      var dtxt = new Date(item.dt * 1000).toLocaleString();
       return (
         <div key={dtxt} className="d-flex justify-content-between">
           <Accordion defaultActiveKey="0">
@@ -135,15 +169,13 @@ function App() {
                       <h3>{dtxt}</h3>
                     </Col>
                     <Col xs={4}>
-                      
                       <img
                         id="wicon2"
-                        src={`https://www.weatherbit.io/static/img/icons/${iconcode}.png `}
+                        src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
                         alt="Weather icon"
                       />
-                      
+
                       <h3>{des}</h3>
-                      
                     </Col>
 
                     <Col>
@@ -156,16 +188,16 @@ function App() {
                 <Card.Body>
                   <div className="d-flex justify-content-around">
                     <div className="d-flex flex-column">
-                      <h4>Relative humidity</h4>
-                      <h3>{item.rh}</h3>
+                      <h4>humidity</h4>
+                      <h3>{item.humidity}</h3>
                     </div>
                     <div className="d-flex flex-column">
                       <h4>Feels like</h4>
-                      <h3>{item.app_temp}</h3>
+                      <h3>{item.feels_like}</h3>
                     </div>
                     <div className="d-flex flex-column">
                       <h4>wind speed</h4>
-                      <h3>{item.wind_spd}</h3>
+                      <h3>{item.wind_speed}</h3>
                     </div>
                   </div>
                 </Card.Body>
@@ -202,7 +234,30 @@ function App() {
   //for (var j=0;j<Mylist.length;j++){
   // if(Mylist[j])
   //}
-  console.log(items)
+  console.log(items);
+
+  if (flag2 == 2) {
+    console.log("reached dayfetch");
+    
+    
+    return (
+      <div id="daily">
+        <Navbar bg="primary" variant="dark">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
+            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
+          </Nav>
+        </Navbar>
+        <Container fluid>
+          <div className="d-flex flex-column align-items-center">
+            <Daily dayfetch={myday}></Daily>
+          </div>
+        </Container>
+      </div>
+    );
+  }
   if (flag2 == 0) {
     return (
       <div className="App">
@@ -211,7 +266,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link onClick={()=>setflag2(2)}>Daily</Nav.Link>
           </Nav>
         </Navbar>
         <Container fluid>
@@ -237,7 +292,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
+            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
           </Nav>
         </Navbar>
         <Container

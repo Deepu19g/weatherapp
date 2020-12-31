@@ -17,25 +17,20 @@ function Today(props) {
   useEffect(() => {
     for (const [key, value] of Object.entries(props.data)) {
       console.log(key, value);
-      
+
       if (key === "data") {
         for (const obj of value) {
-        settemp(obj.temp);
-        setfeels(obj.app_temp);
-        setatm(obj.slp);
-        sethumidity(obj.rh);
-        setspeed(obj.wind_spd);
-        setdes(obj.weather.description);
-        setcode(obj.weather.icon);
+          settemp(obj.temp);
+          setfeels(obj.app_temp);
+          setatm(obj.slp);
+          sethumidity(obj.rh);
+          setspeed(obj.wind_spd);
+          setdes(obj.weather.description);
+          setcode(obj.weather.icon);
         }
-                
       }
-        
-      
-      
     }
   }, [props.data]);
-
 
   if (props.flag == 1) {
     return (
@@ -48,39 +43,45 @@ function Today(props) {
           <Col md={6} id="main" className="d-flex justify-content-between ">
             <div>
               <h1 id="first">{temper} C</h1>
-              <h3>{props.name}</h3>
+              <h3 id="second">{props.name}</h3>
 
-              <h3>{descrypt}</h3>
+              <h3 id="third">{descrypt}</h3>
             </div>
             <div>
-              <div id="icon" >
-              <img
-                        
-                        
-                        src={`https://www.weatherbit.io/static/img/icons/${iconcode}.png `}
-                        alt="Weather icon"
-                      />
+              <div id="icon">
+                <img
+                  src={`https://www.weatherbit.io/static/img/icons/${iconcode}.png `}
+                  alt="Weather icon"
+                />
               </div>
             </div>
           </Col>
-          <Col md={6} id="more" className="d-flex justify-content-around ">
-            <div>
-              <h3>humidity(Relative): {humidity}</h3>
-              <h3>windspeed: {speed}m/s</h3>
-              
-            </div>
-            <div>
-              <h3>pressure: {atm}mb</h3>
-              <h3>feels like:{feelslike} C</h3>
-
-              
-            </div>
-          </Col>
-          <Col md={6} id="hrp" className="d-flex flex-column justify-content-between">
-            <h2 id="idk">hourly forecast</h2>
-            <Row id="hrdata">
-              {props.myhrarr}
+          <Col md={6} id="more">
+            <Row>
+              <Col>
+                
+                <h3>humidity: {humidity}</h3>
+              </Col>
+              <Col>
+                <h3>pressure: {atm}mb</h3>
+              </Col>
             </Row>
+            <Row>
+              <Col>
+                <h3>windspeed: {speed}m/s</h3>
+              </Col>
+              <Col>
+                <h3>feels like:{feelslike} C</h3>
+              </Col>
+            </Row>
+          </Col>
+          <Col
+            md={6}
+            id="hrp"
+            className="d-flex flex-column justify-content-between"
+          >
+            <h2 id="idk">hourly forecast</h2>
+            <Row id="hrdata">{props.myhrarr}</Row>
           </Col>
         </Container>
       </div>

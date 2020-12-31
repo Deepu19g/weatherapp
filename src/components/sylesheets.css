@@ -24,7 +24,8 @@ input[type=text] {
     border-radius: 5px;
     margin-top: 5%;
     margin-bottom: 3%;
-    padding-top: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
 }
 
 .row {
@@ -63,6 +64,7 @@ input[type=text] {
     display: flex;
     align-items: center;
     justify-content: space-around;
+    background-color: white;
 }
 #wicon  {
     max-width: -webkit-fill-available;
@@ -74,9 +76,25 @@ input[type=text] {
     font-size: 1.4rem;
 }
 h3{
-    font-size: 1.2rem !important;
+    font-size: 1.4rem !important;
 }
 #wicon2 {
   width: 30%;
   height: auto;
+}
+#second,#third {
+    font-size: 1.6rem !important;
+}
+.card,.button,.card-header {
+    background-color: white;
+}
+#dailyicon {
+    width: 2.5rem;
+}
+#dayp {
+    margin-left: 0.3rem;
+}
+.card-header button {
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
