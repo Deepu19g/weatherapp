@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
@@ -8,6 +8,16 @@ import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
 
 function Daily(props) {
   console.log(props.dayfetch);
+  const [isDesktop, setDesktop] = useState(window.innerWidth > 576);
+
+  const updateMedia = () => {
+    setDesktop(window.innerWidth > 576);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateMedia);
+    return () => window.removeEventListener("resize", updateMedia);
+  });
 
   var myweek = props.dayfetch.data.map(function weeksort(itms) {
     var date = new Date(itms.ts * 1000).toLocaleDateString();
@@ -19,38 +29,66 @@ function Daily(props) {
     var descrypt = itms.weather.description;
     var mycode = itms.weather.icon;
     var avgtemp = itms.temp;
-    var pope=itms.pop;
-    var windspeed=itms.wind_spd.toFixed(2)
+    var pope = itms.pop;
+    var windspeed = itms.wind_spd.toFixed(2);
     if (date >= present || dmonth > pmonth || dyear > pyear) {
       return (
         <div key={itms.ts}>
           <Accordion defaultActiveKey="0">
             <Card>
               <Card.Header>
-                <Row>
-                  <Accordion.Toggle eventKey="0">
-                    <Col xs={5}><p>{date}</p></Col>
-                    <Col xs={4}>
+                <Accordion.Toggle eventKey="0">
+                  {isDesktop ? (
+                    <Container fluid>
+                      <Row className="d-flex justify-content-around flex-nowrap">
+                      <div>
+                        <h4>{date}</h4>
+                      </div>
+                      <div>
+                        <div className="d-flex ">
+                          <img
+                            src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
+                            alt="Weather icon"
+                            id="dailyicon"
+                          />
+                          <h4>{descrypt}</h4>
+                        </div>
+                      </div>
+                      <div className="d-flex justify-content-center">
+                        <FontAwesomeIcon
+                          icon={faCloudRain}
+                          size="2x"
+                        ></FontAwesomeIcon>
+                        <h4 id="dayp">{pope}%</h4>
+                      </div>
+                      </Row>
+                    </Container>
+                  ) : (
+                    <Container fluid>
+                      <Row className="d-flex justify-content-around">
+                      <div>
+                        <p>{date}</p>
+                      </div>
                       <div>
                         <img
                           src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
                           alt="Weather icon"
                           id="dailyicon"
                         />
-                        <p>{descrypt}</p>
                       </div>
-                    </Col>
-                    <Col xs={4} className="d-flex justify-content-center">
-                      <FontAwesomeIcon
-                      
-                        icon={faCloudRain}
-                        size="2x"
-                      ></FontAwesomeIcon>
-                      <p id="dayp">{pope}%</p>
-                    </Col>
-                  </Accordion.Toggle>
-                </Row>
+                      <div className="d-flex justify-content-center">
+                        <FontAwesomeIcon
+                          icon={faCloudRain}
+                          size="2x"
+                        ></FontAwesomeIcon>
+                        <p id="dayp">{pope}%</p>
+                      </div>
+                      </Row>
+                    </Container>
+                  )}
+                </Accordion.Toggle>
               </Card.Header>
+
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <Row>
@@ -94,7 +132,7 @@ function Daily(props) {
     }
   });
   return (
-    <Col md={6}>
+    <Col md={7} sm={10}>
       <div>{myweek}</div>
     </Col>
   );
