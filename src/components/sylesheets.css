@@ -79,8 +79,8 @@ h3{
     font-size: 1.4rem !important;
 }
 #wicon2 {
-  width: 30%;
-  height: auto;
+  
+  height: 3rem;
 }
 #second,#third {
     font-size: 1.6rem !important;
@@ -97,4 +97,7 @@ h3{
 .card-header button {
     padding-top: 1%;
     padding-bottom: 1%;
+}
+p {
+    font-size: 1.3rem;
 }

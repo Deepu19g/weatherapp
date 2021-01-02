@@ -11,8 +11,9 @@ import Accordion from "react-bootstrap/Accordion";
 import Today from "./components/Today";
 import Daily from "./components/Daily";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCloudRain} from "@fortawesome/free-solid-svg-icons";
+import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Hourly from "./components/Hourly";
 
 library.add(faCloudRain);
 
@@ -34,6 +35,8 @@ function App() {
     //id: "e5005f9710msh08af91097dd5460p1acaaajsn2fe300cfa360",
   };
   const [myhrarr, setmyhrarr] = useState([]);
+  
+
   function onSearch(e) {
     setflag(1);
     e.preventDefault();
@@ -58,6 +61,7 @@ function App() {
       });
   }
   console.log(late);
+  
   useEffect(() => {
     var time = new Date().toString().split(" ")[4];
 
@@ -132,105 +136,20 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
-      fetch(`https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`)
+    fetch(
+      `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
+    )
       .then((res) => res.json())
       .then((response) => {
         console.log(response);
-        setmyday(response)
-      }
-      )
+        setmyday(response);
+      })
       .catch((err) => {
         console.error(err);
-      })
+      });
   }, [items]);
-  function hourlyfun() {
-    setflag2(1);
-    var des;
-    var temp2;
-    var temphrobj = hdetails;
-    var icon;
-    var mylist = temphrobj.hourly.map(function (item) {
-      for (const myobj2 of item.weather) {
-        var iconcode = myobj2.icon;
-        des = myobj2.description;
-      }
-
-      temp2 = item.temp;
-      //var dtxt = item.dt_txt;
-      var dtxt = new Date(item.dt * 1000).toLocaleString();
-      return (
-        <div key={dtxt} className="d-flex justify-content-between">
-          <Accordion defaultActiveKey="0">
-            <Card>
-              <Card.Header>
-                <Row>
-                  <Accordion.Toggle eventKey="0">
-                    <Col>
-                      <h3>{dtxt}</h3>
-                    </Col>
-                    <Col xs={4}>
-                      <img
-                        id="wicon2"
-                        src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
-                        alt="Weather icon"
-                      />
-
-                      <h3>{des}</h3>
-                    </Col>
-
-                    <Col>
-                      <h3>{temp2} C</h3>
-                    </Col>
-                  </Accordion.Toggle>
-                </Row>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <div className="d-flex justify-content-around">
-                    <div className="d-flex flex-column">
-                      <h4>humidity</h4>
-                      <h3>{item.humidity}</h3>
-                    </div>
-                    <div className="d-flex flex-column">
-                      <h4>Feels like</h4>
-                      <h3>{item.feels_like}</h3>
-                    </div>
-                    <div className="d-flex flex-column">
-                      <h4>wind speed</h4>
-                      <h3>{item.wind_speed}</h3>
-                    </div>
-                  </div>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-
-          {/*<Col sm={4}>
-            <h2>{dtxt}</h2>
-          </Col>
-          <Col sm={4}>
-            <div className="d-flex align-items-center">
-              <img
-                id="wicon"
-                src={`https://www.weatherbit.io/static/img/icons/${iconcode}.png `}
-                alt="Weather icon"
-              />
-              <h2>{des}</h2>
-            </div>
-          </Col>
-
-          <Col>
-            <h2>{temp2} C</h2>
-          </Col>
-          <Col>
-            <h2>{item.rh}</h2>
-      </Col>*/}
-        </div>
-      );
-    });
-
-    setmylist(mylist);
-  }
+  
+  
   //for (var j=0;j<Mylist.length;j++){
   // if(Mylist[j])
   //}
@@ -238,14 +157,13 @@ function App() {
 
   if (flag2 == 2) {
     console.log("reached dayfetch");
-    
-    
+
     return (
       <div id="daily">
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
+            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
           </Nav>
@@ -264,9 +182,9 @@ function App() {
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
+            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link onClick={()=>setflag2(2)}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
           </Nav>
         </Navbar>
         <Container fluid>
@@ -290,7 +208,7 @@ function App() {
         <Navbar bg="primary" variant="dark">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={hourlyfun}>hourly</Nav.Link>
+            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
           </Nav>
@@ -300,7 +218,7 @@ function App() {
           className="d-flex flex-column justify-content-center align-items-center"
         >
           <Col md={6} id="hr">
-            {Mylist}
+            <Hourly hdetails={hdetails}></Hourly>
           </Col>
         </Container>
       </div>

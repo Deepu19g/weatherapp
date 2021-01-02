@@ -12,6 +12,7 @@ function Daily(props) {
 
   const updateMedia = () => {
     setDesktop(window.innerWidth > 576);
+    console.log("reached hre too")
   };
 
   useEffect(() => {
