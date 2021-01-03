@@ -30,7 +30,7 @@ input[type=text] {
 
 .row {
     text-align: center;
-    margin-top: 4%;
+   /* margin-top: 4%;*/
     align-items: center;
 }
 #hr {
@@ -38,7 +38,7 @@ input[type=text] {
     margin-top: 3%;
     margin-bottom: 3%;
     border-radius: 10px;
-    max-width: fit-content;
+    /*max-width: fit-content;*/
 }
 #hrdata {
    
@@ -47,7 +47,7 @@ input[type=text] {
     padding-bottom: 5%;
 }
 #hrp {
-    background-color: white;
+    background-color:#3e91fa;
     padding-top: 2%;
     margin-bottom: 5%;
 }
@@ -64,13 +64,13 @@ input[type=text] {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: white;
+    background-color: #7ab0f5;
 }
 #wicon  {
     max-width: -webkit-fill-available;
 }
 .accordion {
-    max-width: 100%;
+    width: 100%;
 }
 .h4 {
     font-size: 1.4rem;

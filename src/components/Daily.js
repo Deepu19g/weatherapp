@@ -12,7 +12,7 @@ function Daily(props) {
 
   const updateMedia = () => {
     setDesktop(window.innerWidth > 576);
-    console.log("reached hre too")
+    console.log("reached hre too");
   };
 
   useEffect(() => {
@@ -42,48 +42,48 @@ function Daily(props) {
                   {isDesktop ? (
                     <Container fluid>
                       <Row className="d-flex justify-content-around flex-nowrap">
-                      <div>
-                        <h4>{date}</h4>
-                      </div>
-                      <div>
-                        <div className="d-flex ">
-                          <img
-                            src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
-                            alt="Weather icon"
-                            id="dailyicon"
-                          />
-                          <h4>{descrypt}</h4>
+                        <div>
+                          <h4>{date}</h4>
                         </div>
-                      </div>
-                      <div className="d-flex justify-content-center">
-                        <FontAwesomeIcon
-                          icon={faCloudRain}
-                          size="2x"
-                        ></FontAwesomeIcon>
-                        <h4 id="dayp">{pope}%</h4>
-                      </div>
+                        <div>
+                          <div className="d-flex ">
+                            <img
+                              src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
+                              alt="Weather icon"
+                              id="dailyicon"
+                            />
+                            <h4>{descrypt}</h4>
+                          </div>
+                        </div>
+                        <div className="d-flex justify-content-center">
+                          <FontAwesomeIcon
+                            icon={faCloudRain}
+                            size="2x"
+                          ></FontAwesomeIcon>
+                          <h4 id="dayp">{pope}%</h4>
+                        </div>
                       </Row>
                     </Container>
                   ) : (
                     <Container fluid>
                       <Row className="d-flex justify-content-around">
-                      <div>
-                        <p>{date}</p>
-                      </div>
-                      <div>
-                        <img
-                          src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
-                          alt="Weather icon"
-                          id="dailyicon"
-                        />
-                      </div>
-                      <div className="d-flex justify-content-center">
-                        <FontAwesomeIcon
-                          icon={faCloudRain}
-                          size="2x"
-                        ></FontAwesomeIcon>
-                        <p id="dayp">{pope}%</p>
-                      </div>
+                        <div>
+                          <p>{date}</p>
+                        </div>
+                        <div>
+                          <img
+                            src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
+                            alt="Weather icon"
+                            id="dailyicon"
+                          />
+                        </div>
+                        <div className="d-flex justify-content-center">
+                          <FontAwesomeIcon
+                            icon={faCloudRain}
+                            size="2x"
+                          ></FontAwesomeIcon>
+                          <p id="dayp">{pope}%</p>
+                        </div>
                       </Row>
                     </Container>
                   )}
