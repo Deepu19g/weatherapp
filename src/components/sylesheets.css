@@ -50,6 +50,7 @@ input[type=text] {
     background-color:#3e91fa;
     padding-top: 2%;
     margin-bottom: 5%;
+    border-radius: 5px;
 }
 #idk {
     padding-left: 5%;
@@ -89,7 +90,7 @@ h3{
     background-color: white;
 }
 #dailyicon {
-    width: 2.5rem;
+    width: 3.5rem;
 }
 #dayp {
     margin-left: 0.3rem;
@@ -99,5 +100,5 @@ h3{
     padding-bottom: 1%;
 }
 p {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
 }

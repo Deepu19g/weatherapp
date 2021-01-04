@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCloudRain, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 function Hourly(props) {
   const [isDesktop, setdDesktop] = useState(window.innerWidth > 576);
 
@@ -41,69 +43,94 @@ function Hourly(props) {
     if (dtxt > 12) {
       dtxt2 = Number(dtxt) - 12;
     }
-    if(dtxt>=presenttime ||dtxd>presentdate|| dtxm>presentm || dtxy>presenty){
+    if (
+      (dtxt >= presenttime && dtxd === presentdate) ||
+      dtxd > presentdate ||
+      dtxm > presentm ||
+      dtxy > presenty
+    ) {
       return (
         <div key={item.dt} className="d-flex justify-content-center">
-          <Accordion defaultActiveKey="0">
+          <Accordion>
             <Card>
               <Card.Header>
                 <Accordion.Toggle eventKey="0">
                   {isDesktop ? (
                     <Container fluid>
-                      <Row>
+                      <Row className="d-flex align-items-center">
                         {dtxt > 12 ? (
                           <Col xs={4}>
-                            <p>{dtxd}</p>
-                            <p>{dtxt2}pm</p>
+                            <h3>{dtxd}<br></br>
+                            {dtxt2}pm</h3>
                           </Col>
                         ) : (
                           <Col xs={4}>
-                            <p>{dtxd}</p>
-                            <p>{dtxt} am</p>
+                            <h3>{dtxd}<br></br>
+                            {dtxt} am</h3>
                           </Col>
                         )}
-  
-                        <Col xs={4}>
-                          <img
-                            id="wicon2"
-                            src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
-                            alt="Weather icon"
-                          />
-  
-                          <h3>{des}</h3>
+
+                        <Col xs={4} className="d-flex align-items-center">
+                          <div>
+                            <img
+                              id="wicon2"
+                              src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
+                              alt="Weather icon"
+                            />
+                          </div>
+                          <div>
+                            <h3>{des}</h3>
+                          </div>
                         </Col>
-  
+
                         <Col>
                           <h3>{temp2} C</h3>
+                        </Col>
+                        <Col>
+                          <FontAwesomeIcon
+                            icon={faChevronDown}
+                            size="2x"
+                          ></FontAwesomeIcon>
                         </Col>
                       </Row>
                     </Container>
                   ) : (
                     <Container fluid>
-                      <Row>
+                      <Row className="d-flex justify-content-between align-items-center flex-nowrap">
                         {dtxt > 12 ? (
-                          <Col xs={5}>
-                            <p>{dtxd}</p>
-                            <p>{dtxt2}pm</p>
-                          </Col>
+                          <div>
+                            <p>
+                              {dtxd}
+                              <br></br>
+                              {dtxt2}pm
+                            </p>
+                          </div>
                         ) : (
-                          <Col xs={5}>
-                            <p>{dtxd}</p>
-                            <p>{dtxt} am</p>
-                          </Col>
+                          <div>
+                            <p>
+                              {dtxd}
+                              <br></br>
+                              {dtxt} am
+                            </p>
+                          </div>
                         )}
-  
-                        <Col xs={3}>
+
+                        <div>
                           <img
                             id="wicon2"
                             src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
                             alt="Weather icon"
                           />
-                        </Col>
-  
-                        <Col xs={4}>
-                          <h3>{temp2} C</h3>
-                        </Col>
+                        </div>
+
+                        <div>
+                          <p>{temp2}C</p>
+                        </div>
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faChevronDown}
+                          ></FontAwesomeIcon>
+                        </div>
                       </Row>
                     </Container>
                   )}
@@ -112,17 +139,21 @@ function Hourly(props) {
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <Row>
-                    <Col>
+                    <Col md={3} xs={6}>
                       <p>humidity</p>
                       <p>{item.humidity}</p>
                     </Col>
-                    <Col>
+                    <Col md={3} xs={6}>
                       <p>Feels like</p>
-                      <p>{item.feels_like}</p>
+                      <p>{item.feels_like} C</p>
                     </Col>
-                    <Col>
+                    <Col md={3} xs={6}>
                       <p>wind speed</p>
-                      <p>{item.wind_speed}</p>
+                      <p>{item.wind_speed} m/s</p>
+                    </Col>
+                    <Col md={3} xs={6}>
+                      <p>dew point</p>
+                      <p>{item.dew_point} C</p>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -131,7 +162,7 @@ function Hourly(props) {
           </Accordion>
         </div>
       );
-    } 
+    }
   });
   return <div>{mylist}</div>;
 }

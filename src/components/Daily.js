@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
+import { faCloudRain, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 function Daily(props) {
   console.log(props.dayfetch);
@@ -35,7 +35,7 @@ function Daily(props) {
     if (date >= present || dmonth > pmonth || dyear > pyear) {
       return (
         <div key={itms.ts}>
-          <Accordion defaultActiveKey="0">
+          <Accordion>
             <Card>
               <Card.Header>
                 <Accordion.Toggle eventKey="0">
@@ -46,7 +46,7 @@ function Daily(props) {
                           <h4>{date}</h4>
                         </div>
                         <div>
-                          <div className="d-flex ">
+                          <div className="d-flex align-items-center">
                             <img
                               src={`https://www.weatherbit.io/static/img/icons/${mycode}.png`}
                               alt="Weather icon"
@@ -55,18 +55,22 @@ function Daily(props) {
                             <h4>{descrypt}</h4>
                           </div>
                         </div>
-                        <div className="d-flex justify-content-center">
+                        <div className="d-flex justify-content-center align-items-center">
                           <FontAwesomeIcon
                             icon={faCloudRain}
                             size="2x"
                           ></FontAwesomeIcon>
                           <h4 id="dayp">{pope}%</h4>
                         </div>
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          size="2x"
+                        ></FontAwesomeIcon>
                       </Row>
                     </Container>
                   ) : (
                     <Container fluid>
-                      <Row className="d-flex justify-content-around">
+                      <Row className="d-flex justify-content-between flex-nowrap">
                         <div>
                           <p>{date}</p>
                         </div>
@@ -77,12 +81,17 @@ function Daily(props) {
                             id="dailyicon"
                           />
                         </div>
-                        <div className="d-flex justify-content-center">
+                        <div className="d-flex justify-content-center align-items-center">
                           <FontAwesomeIcon
                             icon={faCloudRain}
                             size="2x"
                           ></FontAwesomeIcon>
                           <p id="dayp">{pope}%</p>
+                        </div>
+                        <div>
+                          <FontAwesomeIcon
+                            icon={faChevronDown}
+                          ></FontAwesomeIcon>
                         </div>
                       </Row>
                     </Container>
@@ -93,33 +102,31 @@ function Daily(props) {
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <Row>
-                    <Col xs={6}>
-                      <h3>dew point</h3>
-                      <h4>{itms.dewpt}C</h4>
+                    <Col xs={6} md={4}>
+                      <p>dew point</p>
+                      <p>{itms.dewpt} C</p>
                     </Col>
-                    <Col xs={6}>
-                      <h3>wind speed</h3>
-                      <h4>{windspeed}m/s</h4>
+                    <Col xs={6} md={4}>
+                      <p>wind speed</p>
+                      <p>{windspeed} m/s</p>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={6}>
-                      <h3>max temp</h3>
-                      <h4>{itms.max_temp}C</h4>
+
+                    <Col xs={6} md={4}>
+                      <p>max temp</p>
+                      <p>{itms.max_temp} C</p>
                     </Col>
-                    <Col xs={6}>
-                      <h3>min temp</h3>
-                      <h4>{itms.min_temp}C</h4>
+                    <Col xs={6} md={4}>
+                      <p>min temp</p>
+                      <p>{itms.min_temp} C</p>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col xs={6}>
-                      <h4>humidity</h4>
-                      <h3>{itms.rh}</h3>
+
+                    <Col xs={6} md={4}>
+                      <p>humidity</p>
+                      <p>{itms.rh}</p>
                     </Col>
-                    <Col xs={6}>
-                      <h4>pressure(mb)</h4>
-                      <h3>{itms.pres}</h3>
+                    <Col xs={6} md={4}>
+                      <p>pressure(mb)</p>
+                      <p>{itms.pres}</p>
                     </Col>
                   </Row>
                 </Card.Body>
@@ -132,11 +139,7 @@ function Daily(props) {
       return <div key={itms.ts}></div>;
     }
   });
-  return (
-    <Col md={7} sm={10}>
-      <div>{myweek}</div>
-    </Col>
-  );
+  return <div>{myweek}</div>;
 }
 
 export default Daily;

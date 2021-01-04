@@ -136,24 +136,25 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
-    fetch(
-      `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
-    )
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-        setmyday(response);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    
   }, [items]);
   
   
-  //for (var j=0;j<Mylist.length;j++){
-  // if(Mylist[j])
-  //}
-  console.log(items);
+function setfetch(){
+  fetch(
+    `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
+  )
+    .then((res) => res.json())
+    .then((response) => {
+      console.log(response);
+      setmyday(response);
+      setflag2(2)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
+}
 
   if (flag2 == 2) {
     console.log("reached dayfetch");
@@ -165,13 +166,13 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
+            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
           </Nav>
         </Navbar>
-        <Container fluid>
-          <div className="d-flex flex-column align-items-center">
+        <Container fluid className="d-flex flex-column align-items-center">
+          <Col md={7} >
             <Daily dayfetch={myday}></Daily>
-          </div>
+          </Col>
         </Container>
       </div>
     );
@@ -184,7 +185,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
+            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
           </Nav>
         </Navbar>
         <Container fluid>
@@ -210,7 +211,7 @@ function App() {
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link onClick={() => setflag2(2)}>Daily</Nav.Link>
+            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
           </Nav>
         </Navbar>
         <Container

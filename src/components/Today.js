@@ -23,8 +23,8 @@ function Today(props) {
           settemp(obj.temp);
           setfeels(obj.app_temp);
           setatm(obj.slp);
-          sethumidity(obj.rh);
-          setspeed(obj.wind_spd);
+          sethumidity(obj.rh.toFixed(2));
+          setspeed(obj.wind_spd.toFixed(2));
           setdes(obj.weather.description);
           setcode(obj.weather.icon);
         }
@@ -71,7 +71,7 @@ function Today(props) {
                 <h3>windspeed: {speed}m/s</h3>
               </Col>
               <Col>
-                <h3>feels like:{feelslike} C</h3>
+                <h3>feels like:{feelslike}C</h3>
               </Col>
             </Row>
           </Col>
