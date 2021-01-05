@@ -4,7 +4,18 @@ import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudRain, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudRain,
+  faChevronDown,
+  faTemperatureHigh,
+  faTemperatureLow,
+  faTint,
+  faWind,
+  faArrowsAltV,
+  faSun,
+  faEye,
+  
+} from "@fortawesome/free-solid-svg-icons";
 
 function Daily(props) {
   console.log(props.dayfetch);
@@ -102,32 +113,89 @@ function Daily(props) {
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <Row>
-                    <Col xs={6} md={4}>
-                      <p>dew point</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTint}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        dew point
+                      </p>
                       <p>{itms.dewpt} C</p>
                     </Col>
-                    <Col xs={6} md={4}>
-                      <p>wind speed</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faWind}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        wind speed
+                      </p>
                       <p>{windspeed} m/s</p>
                     </Col>
 
-                    <Col xs={6} md={4}>
-                      <p>max temp</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTemperatureHigh}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        max temp
+                      </p>
                       <p>{itms.max_temp} C</p>
                     </Col>
-                    <Col xs={6} md={4}>
-                      <p>min temp</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTemperatureLow}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        min temp
+                      </p>
                       <p>{itms.min_temp} C</p>
                     </Col>
 
-                    <Col xs={6} md={4}>
-                      <p>humidity</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTint}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        humidity(relative)
+                      </p>
                       <p>{itms.rh}</p>
                     </Col>
-                    <Col xs={6} md={4}>
-                      <p>pressure(mb)</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faArrowsAltV}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        pressure(mb)
+                      </p>
                       <p>{itms.pres}</p>
                     </Col>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faSun}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        Max UV index
+                      </p>
+                      <p>{itms.uv}</p>
+                    </Col>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faEye}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        Visibility
+                      </p>
+                      <p>{itms.vis} KM</p>
+                    </Col>
+                    
                   </Row>
                 </Card.Body>
               </Accordion.Collapse>

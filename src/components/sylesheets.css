@@ -21,7 +21,7 @@ input[type=text] {
 }
 #more {
     background-color: white;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-top: 5%;
     margin-bottom: 3%;
     padding-top: 3%;
@@ -101,4 +101,14 @@ h3{
 }
 p {
     font-size: 1.1rem;
+    font-weight: 600;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+#more p {
+    font-size: 1.4rem;
+}
+#font {
+margin-right: 10px;
 }

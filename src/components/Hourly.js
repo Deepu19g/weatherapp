@@ -4,7 +4,15 @@ import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCloudRain, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCloudRain,
+  faChevronDown,
+  faTint,
+  faWind,
+  faArrowsAltV,
+  faTemperatureLow,
+  faSun
+} from "@fortawesome/free-solid-svg-icons";
 function Hourly(props) {
   const [isDesktop, setdDesktop] = useState(window.innerWidth > 576);
 
@@ -60,13 +68,19 @@ function Hourly(props) {
                       <Row className="d-flex align-items-center">
                         {dtxt > 12 ? (
                           <Col xs={4}>
-                            <h3>{dtxd}<br></br>
-                            {dtxt2}pm</h3>
+                            <h3>
+                              {dtxd}
+                              <br></br>
+                              {dtxt2}pm
+                            </h3>
                           </Col>
                         ) : (
                           <Col xs={4}>
-                            <h3>{dtxd}<br></br>
-                            {dtxt} am</h3>
+                            <h3>
+                              {dtxd}
+                              <br></br>
+                              {dtxt} am
+                            </h3>
                           </Col>
                         )}
 
@@ -124,7 +138,7 @@ function Hourly(props) {
                         </div>
 
                         <div>
-                          <p>{temp2}C</p>
+                          <p>{temp2} C</p>
                         </div>
                         <div>
                           <FontAwesomeIcon
@@ -139,21 +153,66 @@ function Hourly(props) {
               <Accordion.Collapse eventKey="0">
                 <Card.Body>
                   <Row>
-                    <Col md={3} xs={6}>
-                      <p>humidity</p>
-                      <p>{item.humidity}</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTint}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        humidity
+                      </p>
+                      <p>{item.humidity}%</p>
                     </Col>
-                    <Col md={3} xs={6}>
-                      <p>Feels like</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTemperatureLow}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        Feels like
+                      </p>
                       <p>{item.feels_like} C</p>
                     </Col>
-                    <Col md={3} xs={6}>
-                      <p>wind speed</p>
+                    <Col md={6} className="d-flex justify-content-between" >
+                      <p>
+                        {" "}
+                        <FontAwesomeIcon
+                          icon={faWind}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        wind speed
+                      </p>
                       <p>{item.wind_speed} m/s</p>
                     </Col>
-                    <Col md={3} xs={6}>
-                      <p>dew point</p>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faTint}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        dew point
+                      </p>
                       <p>{item.dew_point} C</p>
+                    </Col>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faArrowsAltV}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        pressure
+                      </p>
+                      <p>{item.pressure} hPa</p>
+                    </Col>
+                    <Col md={6} className="d-flex justify-content-between">
+                      <p>
+                        <FontAwesomeIcon
+                          icon={faSun}
+                          id="font"
+                        ></FontAwesomeIcon>
+                        UV index
+                      </p>
+                      <p>{item.uvi}</p>
                     </Col>
                   </Row>
                 </Card.Body>

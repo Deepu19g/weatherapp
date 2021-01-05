@@ -108,7 +108,7 @@ function App() {
                     alt="Weather icon"
                   />
 
-                  <h3>{itd.temp}</h3>
+                  <p>{itd.temp}C</p>
                   <h4>{dtxtime}am</h4>
                 </Col>
               );
@@ -122,7 +122,7 @@ function App() {
                     alt="Weather icon"
                   />
 
-                  <h3>{itd.temp}</h3>
+                  <p>{itd.temp}C</p>
                   <h4>{dtxpm}pm</h4>
                 </Col>
               );
@@ -161,7 +161,7 @@ function setfetch(){
 
     return (
       <div id="daily">
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
@@ -180,7 +180,7 @@ function setfetch(){
   if (flag2 == 0) {
     return (
       <div className="App">
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
@@ -206,7 +206,7 @@ function setfetch(){
   } else {
     return (
       <div id="mydiv">
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
