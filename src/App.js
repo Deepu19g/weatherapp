@@ -14,6 +14,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Hourly from "./components/Hourly";
+import Maps from "./components/Maps"
 
 library.add(faCloudRain);
 
@@ -35,7 +36,6 @@ function App() {
     //id: "e5005f9710msh08af91097dd5460p1acaaajsn2fe300cfa360",
   };
   const [myhrarr, setmyhrarr] = useState([]);
-  
 
   function onSearch(e) {
     setflag(1);
@@ -61,7 +61,7 @@ function App() {
       });
   }
   console.log(late);
-  
+
   useEffect(() => {
     var time = new Date().toString().split(" ")[4];
 
@@ -136,25 +136,22 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
-    
   }, [items]);
-  
-  
-function setfetch(){
-  fetch(
-    `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
-  )
-    .then((res) => res.json())
-    .then((response) => {
-      console.log(response);
-      setmyday(response);
-      setflag2(2)
-    })
-    .catch((err) => {
-      console.error(err);
-    });
 
-}
+  function setfetch() {
+    fetch(
+      `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
+    )
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response);
+        setmyday(response);
+        setflag2(2);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 
   if (flag2 == 2) {
     console.log("reached dayfetch");
@@ -164,16 +161,34 @@ function setfetch(){
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
           </Nav>
         </Navbar>
         <Container fluid className="d-flex flex-column align-items-center">
-          <Col md={7} >
+          <Col md={7}>
             <Daily dayfetch={myday}></Daily>
           </Col>
         </Container>
+      </div>
+    );
+  }
+  if (flag2 === 3) {
+    return (
+      <div>
+        <Navbar bg="primary" variant="dark" sticky="top">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
+            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
+          </Nav>
+        </Navbar>
+        <Maps></Maps>
+        
       </div>
     );
   }
@@ -183,9 +198,10 @@ function setfetch(){
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
           </Nav>
         </Navbar>
         <Container fluid>
@@ -203,15 +219,17 @@ function setfetch(){
         </Container>
       </div>
     );
-  } else {
+  }
+  if (flag2 === 1) {
     return (
       <div id="mydiv">
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={()=>setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
           </Nav>
         </Navbar>
         <Container
