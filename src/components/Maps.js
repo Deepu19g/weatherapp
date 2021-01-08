@@ -5,10 +5,10 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import { Icon } from "leaflet";
-import { Container } from "react-bootstrap";
+import { Container,Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const skater = new Icon({
@@ -29,6 +29,8 @@ function Mapsil() {
   const [uvi, setuvi] = useState();
   const [feels, setfeels] = useState();
   const [vis, setvis] = useState();
+ 
+  
   const map = useMapEvents({
     click(e) {
       console.log(e.latlng);
@@ -81,6 +83,10 @@ function Mapsil() {
   );
 }
 function Maps() {
+  
+ 
+    
+
   return (
     <Container fluid id="mainmap">
     <MapContainer
@@ -95,6 +101,7 @@ function Maps() {
       <Mapsil></Mapsil>
     </MapContainer>
     </Container>
+
   );
 }
 export default Maps;

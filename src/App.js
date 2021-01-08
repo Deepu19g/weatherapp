@@ -14,7 +14,8 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Hourly from "./components/Hourly";
-import Maps from "./components/Maps"
+import Maps from "./components/Maps";
+import Modal from "react-bootstrap/Modal";
 
 library.add(faCloudRain);
 
@@ -36,7 +37,9 @@ function App() {
     //id: "e5005f9710msh08af91097dd5460p1acaaajsn2fe300cfa360",
   };
   const [myhrarr, setmyhrarr] = useState([]);
-
+  const [show, setShow] = useState(true);
+  const [searched, setsearch] = useState(false);
+  const handleClose = () => setShow(false);
   function onSearch(e) {
     setflag(1);
     e.preventDefault();
@@ -59,6 +62,7 @@ function App() {
       .catch((err) => {
         console.error(err);
       });
+    setsearch(true);
   }
   console.log(late);
 
@@ -139,18 +143,22 @@ function App() {
   }, [items]);
 
   function setfetch() {
-    fetch(
-      `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
-    )
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response);
-        setmyday(response);
-        setflag2(2);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    if (searched !== false) {
+      fetch(
+        `https://api.weatherbit.io/v2.0/forecast/daily?city=${name}&key=438b481d5a99435daccd13ab74b8117b`
+      )
+        .then((res) => res.json())
+        .then((response) => {
+          console.log(response);
+          setmyday(response);
+          setflag2(2);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      alert("search for a city first");
+    }
   }
 
   if (flag2 == 2) {
@@ -161,7 +169,7 @@ function App() {
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
             <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
@@ -181,14 +189,26 @@ function App() {
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
             <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
           </Nav>
         </Navbar>
         <Maps></Maps>
-        
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Double tap on any location on map to know current weather
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="danger" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
@@ -198,7 +218,7 @@ function App() {
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
-            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
+            <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
             <Nav.Link onClick={setfetch}>Daily</Nav.Link>
             <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
@@ -220,28 +240,34 @@ function App() {
       </div>
     );
   }
-  if (flag2 === 1) {
-    return (
-      <div id="mydiv">
-        <Navbar bg="primary" variant="dark" sticky="top">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link onClick={() => setflag2(1)}>hourly</Nav.Link>
-            <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
-            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
-          </Nav>
-        </Navbar>
-        <Container
-          fluid
-          className="d-flex flex-column justify-content-center align-items-center"
-        >
-          <Col md={6} id="hr">
-            <Hourly hdetails={hdetails}></Hourly>
-          </Col>
-        </Container>
-      </div>
-    );
+  function sethr() {
+    if (searched !== false) {
+      return (
+        <div id="mydiv">
+          <Navbar bg="primary" variant="dark" sticky="top">
+            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Nav className="mr-auto">
+              <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
+              <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
+              <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+              <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
+            </Nav>
+          </Navbar>
+          <Container
+            fluid
+            className="d-flex flex-column justify-content-center align-items-center"
+          >
+            <Col md={6} id="hr">
+              <Hourly hdetails={hdetails}></Hourly>
+            </Col>
+          </Container>
+        </div>
+      );
+    } else {
+      
+      alert("Search for a city first");
+      
+    }
   }
 }
 
