@@ -243,33 +243,37 @@ function App() {
       </div>
     );
   }
+  if (flag2 === 1) {
+    return (
+      <div id="mydiv">
+        <Navbar bg="primary" variant="dark" sticky="top">
+          <Navbar.Brand href="#">Weatherly</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
+            <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
+            <Nav.Link onClick={setfetch}>Daily</Nav.Link>
+            <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
+          </Nav>
+        </Navbar>
+        <Container
+          fluid
+          className="d-flex flex-column justify-content-center align-items-center"
+        >
+          <Col md={6} id="hr">
+            <Hourly hdetails={hdetails}></Hourly>
+          </Col>
+        </Container>
+      </div>
+    );
+  }
   function sethr() {
     console.log("reached hrly");
-    setflag2(1)
-    if (searched !== false ) {
-      return (
-        <div id="mydiv">
-          <Navbar bg="primary" variant="dark" sticky="top">
-            <Navbar.Brand href="#">Weatherly</Navbar.Brand>
-            <Nav className="mr-auto">
-              <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
-              <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
-              <Nav.Link onClick={setfetch}>Daily</Nav.Link>
-              <Nav.Link onClick={() => setflag2(3)}>Map</Nav.Link>
-            </Nav>
-          </Navbar>
-          <Container
-            fluid
-            className="d-flex flex-column justify-content-center align-items-center"
-          >
-            <Col md={6} id="hr">
-              <Hourly hdetails={hdetails}></Hourly>
-            </Col>
-          </Container>
-        </div>
-      );
+
+    if (searched !== false) {
+      setflag2(1);
     } else {
       alert("Search for a city first");
+      
     }
   }
 }
