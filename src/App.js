@@ -11,13 +11,13 @@ import Accordion from "react-bootstrap/Accordion";
 import Today from "./components/Today";
 import Daily from "./components/Daily";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faCloudRain } from "@fortawesome/free-solid-svg-icons";
+import { faCloudRain,faWind } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Hourly from "./components/Hourly";
 import Maps from "./components/Maps";
 import Modal from "react-bootstrap/Modal";
 
-library.add(faCloudRain);
+library.add(faCloudRain,faWind);
 
 function App() {
   const [name, setname] = useState(" ");
@@ -81,17 +81,17 @@ function App() {
 
         sethdetail(response);
         var i = 0;
-        var dtxpm = 0;
+
         var mytemhrarr = response.hourly.map(function hrdetail(itd) {
           //var dtxtime = itd.dt_txt.split(" ")[1];
           var dtxtime = new Date(itd.dt * 1000)
             .toLocaleTimeString()
             .split(":")[0];
-
+          var dtxpm = 0;
           var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
 
           if (
-            ((dtxtime >= 22 && dtxdate == curdate) || dtxdate > curdate) &&
+            ((dtxtime >= time && dtxdate == curdate) || dtxdate > curdate) &&
             i < 4
           ) {
             for (const myobj of itd.weather) {
@@ -116,6 +116,7 @@ function App() {
                   />
 
                   <p>{itd.temp}C</p>
+                  
                   <h4>{dtxtime}am</h4>
                 </Col>
               );
@@ -130,6 +131,7 @@ function App() {
                   />
 
                   <p>{itd.temp}C</p>
+                 
                   <h4>{dtxpm}pm</h4>
                 </Col>
               );
@@ -273,7 +275,6 @@ function App() {
       setflag2(1);
     } else {
       alert("Search for a city first");
-      
     }
   }
 }
