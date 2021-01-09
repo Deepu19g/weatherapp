@@ -67,7 +67,7 @@ function App() {
   console.log(late);
 
   useEffect(() => {
-    var time = new Date().toString().split(" ")[4];
+    var time = new Date().toLocaleTimeString().split(":")[0];
 
     var curdate = new Date().toLocaleDateString();
     console.log(curdate);
@@ -90,7 +90,10 @@ function App() {
 
           var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
 
-          if (dtxtime >= time && curdate == dtxdate && i < 4) {
+          if (
+            ((dtxtime >= 22 && dtxdate == curdate) || dtxdate > curdate) &&
+            i < 4
+          ) {
             for (const myobj of itd.weather) {
               var icod = myobj.icon;
             }
@@ -167,7 +170,7 @@ function App() {
     return (
       <div id="daily">
         <Navbar bg="primary" variant="dark" sticky="top">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#">Weatherly</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
@@ -187,7 +190,7 @@ function App() {
     return (
       <div>
         <Navbar bg="primary" variant="dark" sticky="top">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#">Weatherly</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
@@ -198,7 +201,7 @@ function App() {
         <Maps></Maps>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Reminder</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             Double tap on any location on map to know current weather
@@ -216,7 +219,7 @@ function App() {
     return (
       <div className="App">
         <Navbar bg="primary" variant="dark" sticky="top">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#">Weatherly</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
             <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
@@ -225,14 +228,14 @@ function App() {
           </Nav>
         </Navbar>
         <Container fluid>
-          <form>
+          <form onSubmit={(e) => onSearch(e)}>
             <input
               type="text"
               onChange={(e) => setname(e.target.value)}
+              placeholder="enter the name of city"
+              required
             ></input>
-            <Button type="submit" onClick={onSearch}>
-              submit
-            </Button>
+            <Button type="submit">submit</Button>
           </form>
 
           <Today data={items} name={name} flag={flag} myhrarr={myhrarr}></Today>
@@ -241,11 +244,13 @@ function App() {
     );
   }
   function sethr() {
-    if (searched !== false) {
+    console.log("reached hrly");
+    setflag2(1)
+    if (searched !== false ) {
       return (
         <div id="mydiv">
           <Navbar bg="primary" variant="dark" sticky="top">
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Navbar.Brand href="#">Weatherly</Navbar.Brand>
             <Nav className="mr-auto">
               <Nav.Link onClick={() => sethr()}>hourly</Nav.Link>
               <Nav.Link onClick={() => setflag2(0)}>Today</Nav.Link>
@@ -264,9 +269,7 @@ function App() {
         </div>
       );
     } else {
-      
       alert("Search for a city first");
-      
     }
   }
 }

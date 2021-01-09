@@ -48,7 +48,7 @@ function Today(props) {
       }
     }
   }, [props.data]);
-
+  console.log(props.myhrarr)
   if (props.flag == 1) {
     return (
       <div>
