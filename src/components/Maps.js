@@ -30,7 +30,6 @@ function Mapsil() {
   const [feels, setfeels] = useState();
   const [vis, setvis] = useState();
  
-  
   const map = useMapEvents({
     click(e) {
       console.log(e.latlng);
@@ -85,12 +84,13 @@ function Mapsil() {
 function Maps() {
   
  
-    
+ 
+  
 
   return (
     <Container fluid id="mainmap">
     <MapContainer
-      center={{ lat: 51.505, lng: -0.09 }}
+      center={[20.5937,78.9629]}
       zoom={5}
       scrollWheelZoom={false}
     >
