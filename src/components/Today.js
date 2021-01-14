@@ -49,7 +49,7 @@ function Today(props) {
     }
   }, [props.data]);
   console.log(props.myhrarr)
-  if (props.flag == 1) {
+  if (props.myhrarr.length!==0) {
     return (
       <div>
         <Container

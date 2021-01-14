@@ -125,6 +125,7 @@ p {
   margin-top: 5%;
   margin-bottom: 5%;
 }
-.nav-link{
+#mylink{
   color: white !important;
+  padding-left: 30px;
 }
