@@ -25,8 +25,8 @@ function App() {
   //const [IsLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState({});
   //const [flag, setflag] = useState(0);
-  const [hdetails, sethdetail] = useState({});
- 
+  const [hdetails, sethdetail] = useState({ });
+
   const [late, setlat] = useState();
   const [long, setlong] = useState();
   const [Mylist, setmylist] = useState([]);
@@ -40,6 +40,7 @@ function App() {
   const [myhrarr, setmyhrarr] = useState([]);
   const [show, setShow] = useState(true);
   const [searched, setsearch] = useState(false);
+  const [tohour, settohour] = useState();
   const handleClose = () => setShow(false);
   function onSearch(e) {
     //setflag(1);
@@ -68,13 +69,9 @@ function App() {
   console.log(late);
 
   useEffect(() => {
-    var time = new Date().toLocaleTimeString().split(":")[0];
-
-    var curdate = new Date().toLocaleDateString();
-    console.log(curdate);
     //fetch(`https://api.weatherbit.io/v2.0/forecast/hourly?city=${name}&key=438b481d5a99435daccd13ab74b8117b&hours=48`)
 
-    {/*fetch(
+    fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${late}&lon=${long}&exclude={minutely,alerts}&units=metric&appid=f294bbf17831f5a084f814e8ead88517`
     )
       .then((res) => res.json())
@@ -82,82 +79,78 @@ function App() {
         console.log(response);
 
         sethdetail(response);
-        var i = 0;
 
-        var mytemhrarr = response.hourly.map(function hrdetail(itd) {
-          //var dtxtime = itd.dt_txt.split(" ")[1];
-          var dtxtime = new Date(itd.dt * 1000)
-            .toLocaleTimeString()
-            .split(":")[0];
-          var dtxpm = 0;
-          var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
-
-          if (
-            ((dtxtime >= time && dtxdate == curdate) || dtxdate > curdate) &&
-            i < 4
-          ) {
-            for (const myobj of itd.weather) {
-              var icod = myobj.icon;
-            }
-            console.log(icod);
-            if (dtxtime > 12) {
-              dtxpm = Number(dtxtime) - 12;
-            }
-            console.log(dtxpm);
-            if (dtxpm === 0) {
-              console.log(dtxtime);
-              console.log(itd.temp);
-              i++;
-
-              return (
-                <Col xs={3} key={itd.dt}>
-                  <img
-                    id="wicon"
-                    src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
-                    alt="Weather icon"
-                  />
-
-                  <p>{itd.temp}C</p>
-
-                  <h4>{dtxtime}am</h4>
-                </Col>
-              );
-            } else {
-              i++;
-              return (
-                <Col xs={3} key={itd.dt}>
-                  <img
-                    id="wicon"
-                    src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
-                    alt="Weather icon"
-                  />
-
-                  <p>{itd.temp}C</p>
-
-                  <h4>{dtxpm}pm</h4>
-                </Col>
-              );
-            }
-          }
-        });
         setmyhrarr(mytemhrarr);
         //setmyday(response.daily)
-        console.log(mytemhrarr);
+        //console.log(mytemhrarr);
       })
       .catch((err) => {
         console.error(err);
-      });*/}
+      });
   }, [items]);
 
-  
-  
+  var i = 0;
+  var time = new Date().toLocaleTimeString().split(":")[0];
 
-  function sethr() {
-    console.log("reached hrly");
+  var curdate = new Date().toLocaleDateString();
+  console.log(curdate);
+  console.log(hdetails)
+  if (Object.keys(hdetails).length >2) {
+    console.log(Object.keys(hdetails).length)
+    var mytemhrarr = hdetails.hourly.map(function hrdetail(itd) {
+      //var dtxtime = itd.dt_txt.split(" ")[1];
+      var dtxtime = new Date(itd.dt * 1000).toLocaleTimeString().split(":")[0];
+      var dtxpm = 0;
+      var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
 
-    if (searched === false) {
-      alert("Search for a city first");
-    } 
+      if (
+        ((dtxtime >= time && dtxdate == curdate) || dtxdate > curdate) &&
+        i < 4
+      ) {
+        for (const myobj of itd.weather) {
+          var icod = myobj.icon;
+        }
+        console.log(icod);
+        if (dtxtime > 12) {
+          dtxpm = Number(dtxtime) - 12;
+        }
+        console.log(dtxpm);
+        if (dtxpm === 0) {
+          console.log(dtxtime);
+          console.log(itd.temp);
+          i++;
+
+          return (
+            <Col xs={3} key={itd.dt}>
+              <img
+                id="wicon"
+                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
+                alt="Weather icon"
+              />
+
+              <p>{itd.temp}C</p>
+
+              <h4>{dtxtime}am</h4>
+            </Col>
+          );
+        } else {
+          i++;
+          return (
+            <Col xs={3} key={itd.dt}>
+              <img
+                id="wicon"
+                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
+                alt="Weather icon"
+              />
+
+              <p>{itd.temp}C</p>
+
+              <h4>{dtxpm}pm</h4>
+            </Col>
+          );
+        }
+      }
+    });
   }
 
   return (
@@ -166,10 +159,10 @@ function App() {
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto ">
-            <Link to="/hourly" id="mylink" onClick={sethr}>
+            <Link to="/hourly" id="mylink">
               hourly
             </Link>
-            <Link to="/daily" id="mylink" >
+            <Link to="/daily" id="mylink">
               Daily
             </Link>
             <Link to="/map" id="mylink">
@@ -195,7 +188,7 @@ function App() {
                 <Today
                   data={items}
                   name={name}
-                  //flag={flag}
+                  searched={searched}
                   myhrarr={myhrarr}
                 ></Today>
               </Container>
@@ -215,13 +208,12 @@ function App() {
           </Route>
           <Route path="/daily">
             <div id="daily">
-              
               <Container
                 fluid
                 className="d-flex flex-column align-items-center"
               >
                 <Col md={7}>
-                  <Daily  searched={searched} name={name}></Daily>
+                  <Daily searched={searched} name={name}></Daily>
                 </Col>
               </Container>
             </div>
@@ -229,18 +221,18 @@ function App() {
           <Route path="/map">
             <Maps></Maps>
             <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Reminder</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            Double tap on any location on map to know current weather
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="danger" onClick={handleClose}>
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+              <Modal.Header closeButton>
+                <Modal.Title>Reminder</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                Double tap on any location on map to know current weather
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="danger" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </Route>
         </Switch>
       </div>

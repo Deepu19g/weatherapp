@@ -13,6 +13,7 @@ import {
   faTemperatureLow,
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
+import { Redirect } from "react-router-dom"
 function Hourly(props) {
   const [isDesktop, setdDesktop] = useState(window.innerWidth > 576);
   console.log("reached hurly");
@@ -35,7 +36,8 @@ function Hourly(props) {
   var presentdate = new Date().toLocaleDateString();
   var presentm = presentdate.split("/")[1];
   var presenty = presentdate.split("/")[2];
-  if (Object.keys(temphrobj).length !== 0) {
+  if (Object.keys(temphrobj).length > 2) {
+    
     var mylist = temphrobj.hourly.map(function (item) {
       for (const myobj2 of item.weather) {
         var iconcode = myobj2.icon;
@@ -228,7 +230,9 @@ function Hourly(props) {
   }
 
   else{
-    return <div></div>
+    alert("search for a city first");
+    return <Redirect to="/"></Redirect>
+    
   }
 
   

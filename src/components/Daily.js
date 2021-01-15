@@ -15,16 +15,17 @@ import {
   faSun,
   faEye,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { Redirect } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
 function Daily(props) {
-  console.log(props.dayfetch);
+  const [show, setShow] = useState(true);
   const [isDesktop, setDesktop] = useState(window.innerWidth > 576);
-  const [thisday,setday] = useState({})
+  const [thisday, setday] = useState({});
   const updateMedia = () => {
     setDesktop(window.innerWidth > 576);
     console.log("reached hre too");
   };
-
+  const [loaded, setloaded] = useState(false);
   useEffect(() => {
     window.addEventListener("resize", updateMedia);
     return () => window.removeEventListener("resize", updateMedia);
@@ -37,8 +38,9 @@ function Daily(props) {
         .then((res) => res.json())
         .then((response) => {
           console.log(response);
-          // alert("daydone");
-          setday(response);
+          setday(response)
+          setloaded(true);
+          
           //setflag2(2);
         })
         .catch((err) => {
@@ -46,8 +48,10 @@ function Daily(props) {
         });
     }
   }, [props.searched]);
-  if (Object.keys(thisday).length !== 0) {
-    var myweek = thisday.data.map(function weeksort(itms) {
+  console.log(thisday)
+  if (props.searched === true && loaded === true) {
+    
+      var myweek = thisday.data.map(function weeksort(itms) {
       var date = new Date(itms.ts * 1000).toLocaleDateString();
       var dmonth = date.split("/")[1];
       var dyear = date.split("/")[2];
@@ -223,8 +227,20 @@ function Daily(props) {
       }
     });
     return <div>{myweek}</div>;
+    
+    
+  }  else if(loaded === false && props.searched == true) {
+    return (
+      <Modal show={show}>
+        <Modal.Header closeButton>
+          <Modal.Title>Reminder</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Loading</Modal.Body>
+      </Modal>
+    );
   } else {
-    return <div>HLO</div>;
+    alert("search for a city first");
+    return <Redirect to="/"></Redirect>;
   }
 }
 
