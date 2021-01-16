@@ -29,6 +29,7 @@ function Hourly(props) {
     window.addEventListener("resize", updatedMedia);
     return () => window.removeEventListener("resize", updatedMedia);
   });
+  console.log("rendered")
   var des;
   var temp2;
   var temphrobj = props.hdetails;

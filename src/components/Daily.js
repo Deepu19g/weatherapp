@@ -4,6 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faCloudRain,
   faChevronDown,
@@ -14,6 +15,7 @@ import {
   faArrowsAltV,
   faSun,
   faEye,
+  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
@@ -38,9 +40,9 @@ function Daily(props) {
         .then((res) => res.json())
         .then((response) => {
           console.log(response);
-          setday(response)
+          setday(response);
           setloaded(true);
-          
+
           //setflag2(2);
         })
         .catch((err) => {
@@ -48,10 +50,9 @@ function Daily(props) {
         });
     }
   }, [props.searched]);
-  console.log(thisday)
+  console.log("reached day comp");
   if (props.searched === true && loaded === true) {
-    
-      var myweek = thisday.data.map(function weeksort(itms) {
+    var myweek = thisday.data.map(function weeksort(itms) {
       var date = new Date(itms.ts * 1000).toLocaleDateString();
       var dmonth = date.split("/")[1];
       var dyear = date.split("/")[2];
@@ -227,15 +228,12 @@ function Daily(props) {
       }
     });
     return <div>{myweek}</div>;
-    
-    
-  }  else if(loaded === false && props.searched == true) {
+  } else if (loaded === false && props.searched == true) {
     return (
       <Modal show={show}>
-        <Modal.Header closeButton>
-          <Modal.Title>Reminder</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Loading</Modal.Body>
+        <Modal.Body>
+          Loading
+        </Modal.Body>
       </Modal>
     );
   } else {

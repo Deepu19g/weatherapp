@@ -25,7 +25,7 @@ function App() {
   //const [IsLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState({});
   //const [flag, setflag] = useState(0);
-  const [hdetails, sethdetail] = useState({ });
+  const [hdetails, sethdetail] = useState({});
 
   const [late, setlat] = useState();
   const [long, setlong] = useState();
@@ -37,7 +37,7 @@ function App() {
     base: "https://community-open-weather-map.p.rapidapi.com/weather?",
     //id: "e5005f9710msh08af91097dd5460p1acaaajsn2fe300cfa360",
   };
-  const [myhrarr, setmyhrarr] = useState([]);
+
   const [show, setShow] = useState(true);
   const [searched, setsearch] = useState(false);
   const [tohour, settohour] = useState();
@@ -51,13 +51,13 @@ function App() {
     )
       .then((res) => res.json())
       .then((response) => {
-        console.log(response);
+        //console.log(response);
+
         for (const obi of response.data) {
           setlat(obi.lat);
           console.log(obi.lat);
           setlong(obi.lon);
         }
-
         setItems(response);
       })
 
@@ -66,7 +66,6 @@ function App() {
       });
     setsearch(true);
   }
-  console.log(late);
 
   useEffect(() => {
     //fetch(`https://api.weatherbit.io/v2.0/forecast/hourly?city=${name}&key=438b481d5a99435daccd13ab74b8117b&hours=48`)
@@ -80,7 +79,7 @@ function App() {
 
         sethdetail(response);
 
-        setmyhrarr(mytemhrarr);
+        //setmyhrarr(mytemhrarr);
         //setmyday(response.daily)
         //console.log(mytemhrarr);
       })
@@ -89,110 +88,60 @@ function App() {
       });
   }, [items]);
 
-  var i = 0;
-  var time = new Date().toLocaleTimeString().split(":")[0];
-
-  var curdate = new Date().toLocaleDateString();
-  console.log(curdate);
-  console.log(hdetails)
-  if (Object.keys(hdetails).length >2) {
-    console.log(Object.keys(hdetails).length)
-    var mytemhrarr = hdetails.hourly.map(function hrdetail(itd) {
-      //var dtxtime = itd.dt_txt.split(" ")[1];
-      var dtxtime = new Date(itd.dt * 1000).toLocaleTimeString().split(":")[0];
-      var dtxpm = 0;
-      var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
-
-      if (
-        ((dtxtime >= time && dtxdate == curdate) || dtxdate > curdate) &&
-        i < 4
-      ) {
-        for (const myobj of itd.weather) {
-          var icod = myobj.icon;
-        }
-        console.log(icod);
-        if (dtxtime > 12) {
-          dtxpm = Number(dtxtime) - 12;
-        }
-        console.log(dtxpm);
-        if (dtxpm === 0) {
-          console.log(dtxtime);
-          console.log(itd.temp);
-          i++;
-
-          return (
-            <Col xs={3} key={itd.dt}>
-              <img
-                id="wicon"
-                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
-                alt="Weather icon"
-              />
-
-              <p>{itd.temp}C</p>
-
-              <h4>{dtxtime}am</h4>
-            </Col>
-          );
-        } else {
-          i++;
-          return (
-            <Col xs={3} key={itd.dt}>
-              <img
-                id="wicon"
-                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
-                alt="Weather icon"
-              />
-
-              <p>{itd.temp}C</p>
-
-              <h4>{dtxpm}pm</h4>
-            </Col>
-          );
-        }
-      }
-    });
-  }
-
   return (
     <Router>
       <div className="App">
         <Navbar bg="primary" variant="dark" sticky="top">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto ">
-            <Link to="/hourly" id="mylink">
-              hourly
-            </Link>
-            <Link to="/daily" id="mylink">
-              Daily
-            </Link>
-            <Link to="/map" id="mylink">
-              Map
-            </Link>
-            <Link to="/" id="mylink">
-              Today
-            </Link>
+            <Nav.Link>
+              <Link to="/hourly" >
+                Hourly
+              </Link>
+            </Nav.Link>
+
+            <Nav.Link>
+              <Link to="/daily">
+                Daily
+              </Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/map" >
+                Map
+              </Link>
+            </Nav.Link>
+
+            <Nav.Link>
+              <Link to="/" >
+                Today
+              </Link>
+            </Nav.Link>
           </Nav>
         </Navbar>
 
         <Switch>
           <Route exact path="/">
-            <form onSubmit={(e) => onSearch(e)}>
-              <input
-                type="text"
-                onChange={(e) => setname(e.target.value)}
-                placeholder="enter the name of city"
-                required
-              ></input>
-              <Button type="submit">submit</Button>
-              <Container fluid>
-                <Today
-                  data={items}
-                  name={name}
-                  searched={searched}
-                  myhrarr={myhrarr}
-                ></Today>
-              </Container>
-            </form>
+            <div className="d-flex justify-content-center">
+              <form onSubmit={(e) => onSearch(e)} className="search-form">
+                <input
+                  type="text"
+                  onChange={(e) => setname(e.target.value)}
+                  placeholder="enter the name of city"
+                  required
+                ></input>
+                <Button type="submit" className="submit-button">
+                  submit
+                </Button>
+              </form>
+            </div>
+            <Container fluid>
+              <Today
+                data={items}
+                name={name}
+                //searched={searched}
+                hdetails={hdetails}
+              ></Today>
+            </Container>
           </Route>
           <Route path="/hourly">
             <div id="mydiv">
