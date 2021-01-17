@@ -86,7 +86,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar bg="primary" variant="dark" sticky="top">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Brand href="#home"> Weatherly</Navbar.Brand>
           <Nav className="mr-auto ">
             <Nav.Link>
               <Link to="/hourly" onClick={check}>
