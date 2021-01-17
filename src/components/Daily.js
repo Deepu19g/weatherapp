@@ -15,17 +15,17 @@ import {
   faArrowsAltV,
   faSun,
   faEye,
-  faSpinner,
+  
 } from "@fortawesome/free-solid-svg-icons";
 import { Redirect } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 function Daily(props) {
-  const [show, setShow] = useState(true);
+  const [show,setshow] = useState()
   const [isDesktop, setDesktop] = useState(window.innerWidth > 576);
   const [thisday, setday] = useState({});
   const updateMedia = () => {
     setDesktop(window.innerWidth > 576);
-    console.log("reached hre too");
+    
   };
   const [loaded, setloaded] = useState(false);
   useEffect(() => {
@@ -39,18 +39,18 @@ function Daily(props) {
       )
         .then((res) => res.json())
         .then((response) => {
-          console.log(response);
+          
           setday(response);
           setloaded(true);
 
-          //setflag2(2);
+          
         })
         .catch((err) => {
           console.error(err);
         });
     }
-  }, [props.searched]);
-  console.log("reached day comp");
+  }, [props.searched,props.name]);
+  
   if (props.searched === true && loaded === true) {
     var myweek = thisday.data.map(function weeksort(itms) {
       var date = new Date(itms.ts * 1000).toLocaleDateString();
@@ -61,7 +61,7 @@ function Daily(props) {
       var pyear = present.split("/")[2];
       var descrypt = itms.weather.description;
       var mycode = itms.weather.icon;
-      var avgtemp = itms.temp;
+      
       var pope = itms.pop;
       var windspeed = itms.wind_spd.toFixed(2);
       if (date >= present || dmonth > pmonth || dyear > pyear) {
@@ -229,7 +229,7 @@ function Daily(props) {
       }
     });
     return <div>{myweek}</div>;
-  } else if (loaded === false && props.searched == true) {
+  } else if (loaded === false && props.searched === true) {
     return (
       <Modal show={show}>
         <Modal.Body>

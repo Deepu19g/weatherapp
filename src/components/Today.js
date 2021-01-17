@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import $ from "jquery";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,21 +16,21 @@ function Today(props) {
   const [humidity, sethumidity] = useState(0);
   const [atm, setatm] = useState(0);
   const [speed, setspeed] = useState(0);
-  const [myhrarr, setmyhrarr] = useState([]);
+  //const [myhrarr, setmyhrarr] = useState([]);
   const [temper, settemp] = useState(0);
   const [feelslike, setfeels] = useState();
 
   const [iconcode, setcode] = useState(0);
   const [descrypt, setdes] = useState(" ");
-  const [curtime, settime] = useState();
+ // const [curtime, settime] = useState();
   const [aqi, setaqi] = useState();
   const [dewpt, setdewpt] = useState();
   const [vis, setvis] = useState();
   const [uv, setuv] = useState();
-  //const [i,seti] = useState(0)
+  
   useEffect(() => {
     for (const [key, value] of Object.entries(props.data)) {
-      console.log(key, value);
+      
 
       if (key === "data") {
         for (const obj of value) {
@@ -49,38 +49,36 @@ function Today(props) {
       }
     }
   }, [props.data]);
-  //console.log(props.myhrarr)
+  
   var mytemhrarr=[];
   if (Object.keys(props.hdetails).length > 2) {
-    //console.log(Object.keys(hdetails).length)
+    
     var i=0;
     var time = new Date().toLocaleTimeString().split(":")[0];
 
     var curdate = new Date().toLocaleDateString();
      mytemhrarr = props.hdetails.hourly.map(function hrdetail(itd) {
-      //var dtxtime = itd.dt_txt.split(" ")[1];
+      
       var dtxtime = new Date(itd.dt * 1000).toLocaleTimeString().split(":")[0];
       var dtxpm = 0;
       var dtxdate = new Date(itd.dt * 1000).toLocaleDateString();
 
       if (
-        ((dtxtime >= time && dtxdate == curdate) || dtxdate > curdate) &&
+        ((dtxtime >= time && dtxdate === curdate) || dtxdate > curdate) &&
         (i < 4)
       ) {
-        //seti(previ => previ + 1);
+        
         i++;
         for (const myobj of itd.weather) {
           var icod = myobj.icon;
         }
-        console.log(i)
-        console.log(icod);
+        
         if (dtxtime > 12) {
           dtxpm = Number(dtxtime) - 12;
         }
-        console.log(dtxpm);
+        
         if (dtxpm === 0) {
-          console.log(dtxtime);
-          console.log(itd.temp);
+          
          
 
           return (

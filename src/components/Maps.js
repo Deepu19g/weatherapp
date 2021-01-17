@@ -5,10 +5,10 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet";
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 
 import { Icon } from "leaflet";
-import { Container,Button } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const skater = new Icon({
@@ -18,8 +18,7 @@ const skater = new Icon({
 });
 
 function Mapsil() {
-  var lat, lon;
-  var temp = 0;
+  
   const [position, setPosition] = useState(null);
   const [tempe, settempe] = useState();
   const [humidity, sethumidity] = useState();
@@ -32,18 +31,17 @@ function Mapsil() {
  
   const map = useMapEvents({
     click(e) {
-      console.log(e.latlng);
+      
       setPosition(e.latlng);
-      lat = e.latlng.lat;
-      lon = e.latlng.lng;
-      console.log(lat);
+     
+      
       fetch(
         `https://api.openweathermap.org/data/2.5/onecall?lat=${e.latlng.lat}&lon=${e.latlng.lng}&exclude={minutely,alerts}&units=metric&appid=f294bbf17831f5a084f814e8ead88517`
       )
         .then((res) => res.json())
         .then((response) => {
-          temp = response.current.temp;
-          console.log(response.current);
+         
+          
           settempe(response.current.temp);
           sethumidity(response.current.humidity);
           setpressure(response.current.pressure);
@@ -58,7 +56,7 @@ function Mapsil() {
         });
     },
   });
-  console.log(tempe);
+  
   return position === null ? null : (
     <Marker position={position} icon={skater}>
       <Popup className="d-flex flex-column">

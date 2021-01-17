@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Col, Container, Row, Button } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faCloudRain,
+  
   faChevronDown,
   faTint,
   faWind,
@@ -14,13 +14,12 @@ import {
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import { Redirect } from "react-router-dom";
-import Modal from "react-bootstrap/Modal";
+
 
 function Hourly(props) {
   const [isDesktop, setdDesktop] = useState(window.innerWidth > 576);
-  const [show, setShow] = useState(true);
-  const handleClose = () => setShow(false);
-  console.log("reached hurly");
+  
+  
   const updatedMedia = () => {
     if (window.innerWidth > 576) {
       setdDesktop(true);
@@ -29,11 +28,11 @@ function Hourly(props) {
     }
   };
   useEffect(() => {
-    //console.log("useefect working");
+    
     window.addEventListener("resize", updatedMedia);
     return () => window.removeEventListener("resize", updatedMedia);
   });
-  console.log("rendered");
+  
   var des;
   var temp2;
   var temphrobj = props.hdetails;
