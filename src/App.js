@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Hourly from "./components/Hourly";
 import Maps from "./components/Maps";
 import Modal from "react-bootstrap/Modal";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 
 library.add(faCloudRain, faWind);
 
@@ -87,7 +87,12 @@ function App() {
         console.error(err);
       });
   }, [items]);
-
+  function check(){
+    if(searched!==true){
+      alert("search for a city first");
+      
+    }
+  }
   return (
     <Router>
       <div className="App">
@@ -95,13 +100,13 @@ function App() {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto ">
             <Nav.Link>
-              <Link to="/hourly" >
+              <Link to="/hourly" onClick={check}>
                 Hourly
               </Link>
             </Nav.Link>
 
             <Nav.Link>
-              <Link to="/daily">
+              <Link to="/daily" onClick={check}>
                 Daily
               </Link>
             </Nav.Link>

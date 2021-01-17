@@ -77,7 +77,7 @@ h3 {
   font-size: 1.4rem !important;
 }
 #wicon2 {
-  height: 3rem;
+  height: 4rem;
 }
 #second,
 #third {
@@ -89,7 +89,8 @@ h3 {
   background-color: white;
 }
 #dailyicon {
-  width: 3.5rem;
+  width: 3.2rem;
+ 
 }
 #dayp {
   margin-left: 0.3rem;

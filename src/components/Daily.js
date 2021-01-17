@@ -113,10 +113,11 @@ function Daily(props) {
                               id="dailyicon"
                             />
                           </div>
-                          <div className="d-flex justify-content-center align-items-center">
+                          <div className="d-flex justify-content-center align-items-center" id="rain">
                             <FontAwesomeIcon
                               icon={faCloudRain}
-                              size="2x"
+                              size= "2x"
+                              
                             ></FontAwesomeIcon>
                             <p id="dayp">{pope}%</p>
                           </div>
@@ -237,7 +238,7 @@ function Daily(props) {
       </Modal>
     );
   } else {
-    alert("search for a city first");
+    
     return <Redirect to="/"></Redirect>;
   }
 }
