@@ -230,6 +230,7 @@ function Daily(props) {
     });
     return <div>{myweek}</div>;
   } else if (loaded === false && props.searched === true) {
+    
     return (
       <Modal show={show}>
         <Modal.Body>

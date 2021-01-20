@@ -40,7 +40,7 @@ function Hourly(props) {
   var presentdate = new Date().toLocaleDateString();
   var presentm = presentdate.split("/")[1];
   var presenty = presentdate.split("/")[2];
-  if (Object.keys(temphrobj).length > 2) {
+  if (Object.keys(temphrobj).length > 2 &&props.searched===true) {
     var mylist = temphrobj.hourly.map(function (item) {
       for (const myobj2 of item.weather) {
         var iconcode = myobj2.icon;
@@ -227,6 +227,9 @@ function Hourly(props) {
             </Accordion>
           </div>
         );
+      }
+      else{
+        <div key={item.dt}></div>
       }
     });
     return <div>{mylist}</div>;

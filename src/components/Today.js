@@ -114,6 +114,9 @@ function Today(props) {
         
         
       }
+      else{
+        <div key={itd.dt}></div>
+      }
     });
     
   }
