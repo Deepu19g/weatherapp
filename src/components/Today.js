@@ -85,7 +85,7 @@ function Today(props) {
             <Col xs={3} key={itd.dt}>
               <img
                 id="wicon"
-                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
+                src={`https://openweathermap.org/img/wn/${icod}@2x.png`}
                 alt="Weather icon"
               />
 
@@ -100,7 +100,7 @@ function Today(props) {
             <Col xs={3} key={itd.dt}>
               <img
                 id="wicon"
-                src={`http://openweathermap.org/img/wn/${icod}@2x.png`}
+                src={`https://openweathermap.org/img/wn/${icod}@2x.png`}
                 alt="Weather icon"
               />
 

@@ -94,7 +94,7 @@ function Hourly(props) {
                             <div>
                               <img
                                 id="wicon2"
-                                src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
+                                src={`https://openweathermap.org/img/wn/${iconcode}@2x.png`}
                                 alt="Weather icon"
                               />
                             </div>
@@ -138,7 +138,7 @@ function Hourly(props) {
                           <div>
                             <img
                               id="wicon2"
-                              src={`http://openweathermap.org/img/wn/${iconcode}@2x.png`}
+                              src={`https://openweathermap.org/img/wn/${iconcode}@2x.png`}
                               alt="Weather icon"
                             />
                           </div>
