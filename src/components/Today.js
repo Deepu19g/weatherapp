@@ -120,7 +120,7 @@ function Today(props) {
     });
     
   }
-  if (Object.keys(props.data).length !== 0) {
+  if (props.searched===true) {
     return (
       <div>
         <Container

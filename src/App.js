@@ -60,7 +60,7 @@ function App() {
       })
 
       .catch((err) => {
-        console.error(err);
+        console.log(err);
         
         alert("data not found for your request")
         setsearch(false)
@@ -129,7 +129,7 @@ function App() {
               </form>
             </div>
             <Container fluid>
-              <Today data={items} name={name} hdetails={hdetails}></Today>
+              <Today data={items} name={name} hdetails={hdetails} searched={searched}></Today>
             </Container>
           </Route>
           <Route path="/hourly">
